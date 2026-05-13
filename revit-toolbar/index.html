@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revit Toolbar — Coming Soon</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e1117; --card: #1b2027; --border: #2b313b;
+      --text: #e8eaed; --muted: #8b949e; --radius: 16px;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    header {
+      max-width: 860px; width: 100%; margin: 0 auto; padding: 28px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; }
+    nav a { font-size: 0.88rem; color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--text); }
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 48px 24px;
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 56px 48px; text-align: center;
+      max-width: 480px; width: 100%;
+    }
+    h1 { font-size: 2rem; font-weight: 700; color: #f4f6f8; margin-bottom: 16px; }
+    p { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">Revit Toolbar</span>
+    <nav><a href="../">← All Tools</a></nav>
+  </header>
+  <main>
+    <div class="card">
+      <h1>Coming Soon</h1>
+      <p>This page is not yet public. Check back later.</p>
+    </div>
+  </main>
+</body>
+</html>

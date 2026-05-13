@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MilestoneComment — Tools by Jonah Eaton</title>
+  <meta name="description" content="Free tools for engineering and document workflows, built by Jonah Eaton." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0e1117;
+      --surface:  #161b22;
+      --card:     #1b2027;
+      --border:   #2b313b;
+      --text:     #e8eaed;
+      --muted:    #8b949e;
+      --accent:   #4f46e5;
+      --accent-h: #5d54f0;
+      --radius:   16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .logo span { color: var(--muted); font-weight: 400; }
+
+    .header-links { display: flex; gap: 20px; font-size: 0.88rem; }
+    .header-links a { color: var(--muted); }
+    .header-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #f4f6f8;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Tools grid */
+    .section { padding: 0 0 72px; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .tool-card:hover {
+      border-color: #4a5260;
+      text-decoration: none;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tool-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f0f3f6;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .pill-live { background: #0d2818; color: #4ade80; border: 1px solid #166534; }
+    .pill-soon { background: #1c1a10; color: #f0b429; border: 1px solid #4a3f10; }
+
+    .tool-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .tool-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-size: 0.76rem;
+      color: #6b7280;
+      background: #11151a;
+      border: 1px solid #2a3038;
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+
+    /* Support */
+    .support {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .support h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0f3f6;
+      margin-bottom: 10px;
+    }
+
+    .support p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn:hover { transform: translateY(-1px); text-decoration: none; }
+    .btn-kofi { background: #ff5e5b; color: #fff; border: 1px solid #ff7a78; }
+    .btn-kofi:hover { background: #ff6e6b; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap">
+      <span class="logo">MilestoneComment <span>by Jonah Eaton</span></span>
+      <nav class="header-links">
+        <a href="https://ko-fi.com/jonaheaton">Ko-fi</a>
+        <a href="https://github.com/MilestoneComment">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="hero">
+        <h1>Free tools for people<br/>who work with documents.</h1>
+        <p>Small, focused utilities built for real engineering and documentation workflows.</p>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Tools</p>
+        <div class="tools">
+
+          <a class="tool-card" href="./headway/">
+            <div class="tool-header">
+              <span class="tool-name">Headway</span>
+              <span class="pill pill-live">Live</span>
+            </div>
+            <p class="tool-desc">Batch-apply a header from a master Word document to every .docx in a folder. Preserves formatting, tables, and fonts exactly.</p>
+            <div class="tool-tags">
+              <span class="tag">Windows</span>
+              <span class="tag">Word</span>
+              <span class="tag">Batch</span>
+            </div>
+          </a>
+
+          <div class="tool-card">
+            <div class="tool-header">
+              <span class="tool-name">Extrudel</span>
+              <span class="pill pill-soon">Coming Soon</span>
+            </div>
+            <p class="tool-desc">More details coming soon.</p>
+            <div class="tool-tags">
+              <span class="tag">Windows</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="support">
+        <h2>All tools are free.</h2>
+        <p>If something saves you time on a project, consider buying me a coffee.</p>
+        <a class="btn btn-kofi" href="https://ko-fi.com/jonaheaton">☕ ko-fi.com/jonaheaton</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Jonah Eaton</span>
+      <span>
+        <a href="https://ko-fi.com/jonaheaton">Ko-fi</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/MilestoneComment">GitHub</a>
+      </span>
+    </div>
+  </footer>
+
+</body>
+</html>
