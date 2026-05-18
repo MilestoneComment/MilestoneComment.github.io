@@ -108,8 +108,32 @@
       margin-bottom: 40px; letter-spacing: -0.3px;
     }
 
-    /* ── Image placeholders ─────────────────────────────────── */
-    .img-placeholder {
+    /* ── Real images ────────────────────────────────────────── */
+    .site-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+    }
+
+    /* Hero screenshot */
+    .hero-screenshot {
+      margin: 48px auto 0;
+      max-width: 760px;
+    }
+    .hero-screenshot img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    /* Gallery grid */
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .gallery-item { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; background: #111620; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-placeholder {
       background: #111620;
       border: 2px dashed #2b3340;
       border-radius: var(--radius);
@@ -123,22 +147,10 @@
       font-weight: 500;
       text-align: center;
       padding: 24px;
-      user-select: none;
+      aspect-ratio: 4/3;
     }
-
-    .img-placeholder .ph-icon { font-size: 2rem; opacity: 0.4; }
-    .img-placeholder .ph-label { color: #4a5f75; font-size: 0.78rem; letter-spacing: 0.3px; }
-
-    /* Hero screenshot */
-    .hero-screenshot {
-      margin: 48px auto 0;
-      max-width: 760px;
-    }
-    .hero-screenshot .img-placeholder { height: 420px; border-radius: 12px; }
-
-    /* Gallery grid */
-    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .gallery .img-placeholder { height: 220px; }
+    .gallery-placeholder .ph-icon { font-size: 2rem; opacity: 0.4; }
+    .gallery-placeholder .ph-label { color: #4a5f75; font-size: 0.78rem; letter-spacing: 0.3px; }
 
     @media (max-width: 640px) { .gallery { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 420px) { .gallery { grid-template-columns: 1fr; } }
@@ -175,7 +187,11 @@
       border-radius: 6px; padding: 2px 8px; margin: 0 3px 4px 0;
     }
     .mode-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.55; }
-    .mode-card .img-placeholder { height: 160px; margin-top: 6px; }
+    .mode-card .mode-img {
+      margin-top: 6px; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 4/3; background: #111620;
+    }
+    .mode-card .mode-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ── Steps ──────────────────────────────────────────────── */
     .steps { display: flex; flex-direction: column; }
@@ -245,7 +261,7 @@
 
     <!-- ── Hero ───────────────────────────────────────────── -->
     <section class="hero">
-      <div class="badge">Free Windows Tool · v2.1</div>
+      <div class="badge">Free Windows Tool · v2.3</div>
       <h1>Turn any image into a<br/><span>3D-printable STL</span> in seconds.</h1>
       <p>
         Lithophanes, nightlights, window hangers, cylinders, coins, badges, and name plates —
@@ -266,20 +282,37 @@
       </div>
     </section>
 
-    <!-- Hero screenshot placeholder -->
+    <!-- Hero screenshot -->
     <div class="hero-screenshot">
-      <div class="img-placeholder">
-        <div class="ph-icon">🖥️</div>
-        <strong>App screenshot</strong>
-        <div class="ph-label">Main window · Lithophane mode</div>
-      </div>
+      <img src="images/screenshot-main.png" alt="Extrudel main window showing lithophane mode" />
     </div>
 
     <!-- ── What's new ───────────────────────────────────────── -->
     <section class="section">
-      <p class="section-label">What's new in v2.1</p>
-      <h2>Now does a whole lot more.</h2>
+      <p class="section-label">What's new in v2.3</p>
+      <h2>Sharper geometry, smarter nightlights.</h2>
       <div class="new-list">
+        <div class="new-item">
+          <div class="new-dot"></div>
+          <div>
+            <h4>Window Hanger holes — always inside the panel</h4>
+            <p>Fixed a geometry bug where the right hanging hole could land outside the mesh when the image's aspect ratio didn't match the target panel size. Holes now correctly track the actual rendered panel width. A missing bottom-edge bounds check was also added.</p>
+          </div>
+        </div>
+        <div class="new-item">
+          <div class="new-dot"></div>
+          <div>
+            <h4>Curved Nightlight plug slot — watertight fix</h4>
+            <p>The far wall of the curved nightlight's plug slot had a reversed face normal. Some slicers flagged this as a non-manifold edge. The winding is now correct and slicers report clean geometry.</p>
+          </div>
+        </div>
+        <div class="new-item">
+          <div class="new-dot"></div>
+          <div>
+            <h4>Flat Nightlight — Stretch to Fill / Keep Aspect Ratio</h4>
+            <p>Two new scaling modes sit next to the width and height fields. Stretch to Fill makes the panel exactly the size you enter. Keep Aspect Ratio (the default) links width and height to the image's proportions — type one and the other updates automatically.</p>
+          </div>
+        </div>
         <div class="new-item">
           <div class="new-dot"></div>
           <div>
@@ -312,28 +345,14 @@
           <div class="new-dot"></div>
           <div>
             <h4>mm / in toggle, default folders, window mode — all persistent</h4>
-            <p>Switch between millimetres and inches any time — your choice is now remembered across launches. Set a default input and output folder so Browse always opens in the right place. App can start maximised, fullscreen, or windowed.</p>
+            <p>Switch between millimetres and inches any time — your choice is remembered across launches. Set a default input and output folder so Browse always opens in the right place.</p>
           </div>
         </div>
         <div class="new-item">
           <div class="new-dot"></div>
           <div>
             <h4>Denoise input — smarter photo handling</h4>
-            <p>New optional checkbox in the lithophane settings. When ticked, Extrudel applies a small Gaussian blur to the source image before building geometry — knocking out JPEG artefacts and scanner grain without over-smoothing the result. Leave it off for clean SVGs and line art.</p>
-          </div>
-        </div>
-        <div class="new-item">
-          <div class="new-dot"></div>
-          <div>
-            <h4>Sharper defaults</h4>
-            <p>Default Smoothing is now 1 (was 2), and the hidden pre-blur that previously ran silently on every flat lithophane is removed. Out-of-box output is noticeably crisper for line art and stencils. Photo users have two knobs — Smoothing and Denoise input — to dial in exactly the softness they want.</p>
-          </div>
-        </div>
-        <div class="new-item">
-          <div class="new-dot"></div>
-          <div>
-            <h4>Circle mode no longer clips corners</h4>
-            <p>Previously, filled pixels in image corners could stick outside the circle boundary. Extrudel now finds the farthest solid pixel and shrinks the scale so everything fits inside.</p>
+            <p>Optional checkbox in the lithophane settings. When ticked, Extrudel applies a small Gaussian blur before building geometry — knocking out JPEG artefacts and scanner grain without over-smoothing. Leave it off for clean SVGs and line art.</p>
           </div>
         </div>
       </div>
@@ -344,35 +363,25 @@
       <p class="section-label">Examples</p>
       <h2>One tool, many outputs.</h2>
       <div class="gallery">
-        <div class="img-placeholder">
-          <div class="ph-icon">🔆</div>
-          <strong>Flat lithophane</strong>
-          <div class="ph-label">Printed · backlit</div>
+        <div class="gallery-item">
+          <img src="images/example-flat-panel.png" alt="Flat lithophane panel — backlit photo print" />
         </div>
-        <div class="img-placeholder">
-          <div class="ph-icon">🕯️</div>
-          <strong>Curved nightlight</strong>
-          <div class="ph-label">Arc base · plug slot</div>
+        <div class="gallery-item">
+          <img src="images/example-curved-nightlight.png" alt="Curved nightlight with arc base and plug slot" />
         </div>
-        <div class="img-placeholder">
+        <div class="gallery-placeholder">
           <div class="ph-icon">🪟</div>
           <strong>Window hanger</strong>
           <div class="ph-label">Through-holes · hanging</div>
         </div>
-        <div class="img-placeholder">
-          <div class="ph-icon">🔵</div>
-          <strong>Cylinder / lampshade</strong>
-          <div class="ph-label">360° wrap</div>
+        <div class="gallery-item">
+          <img src="images/example-cylinder.png" alt="Cylinder lampshade — 360° image wrap" />
         </div>
-        <div class="img-placeholder">
-          <div class="ph-icon">🪙</div>
-          <strong>Coin / token</strong>
-          <div class="ph-label">Circle extrusion</div>
+        <div class="gallery-item">
+          <img src="images/example-coin.png" alt="Coin / token — circle extrusion" />
         </div>
-        <div class="img-placeholder">
-          <div class="ph-icon">🏷️</div>
-          <strong>Name plate / badge</strong>
-          <div class="ph-label">Rectangle extrusion</div>
+        <div class="gallery-item">
+          <img src="images/example-nameplate.png" alt="Name plate / badge — rectangle extrusion" />
         </div>
       </div>
     </section>
@@ -393,9 +402,8 @@
             <span class="tag">Nightlight</span>
           </div>
           <p>Height-map mesh from a greyscale image. Holds detail on portrait photos, landscapes, or logos. Backlit or front-lit.</p>
-          <div class="img-placeholder">
-            <div class="ph-icon">🖼️</div>
-            <div class="ph-label">Lithophane screenshot</div>
+          <div class="mode-img">
+            <img src="images/example-flat-panel.png" alt="Flat lithophane example" />
           </div>
         </div>
 
@@ -408,9 +416,8 @@
             <span class="tag">Stamps</span>
           </div>
           <p>Fit a stencil image inside a circle diameter. Solid pixels are extruded. Add an optional base disc for a finished backing.</p>
-          <div class="img-placeholder">
-            <div class="ph-icon">🪙</div>
-            <div class="ph-label">Coin / token example</div>
+          <div class="mode-img">
+            <img src="images/example-coin.png" alt="Coin / token circle extrusion example" />
           </div>
         </div>
 
@@ -423,9 +430,8 @@
             <span class="tag">Badges</span>
           </div>
           <p>Fit a stencil image inside exact W × H bounds. Add an optional base plate for a clean, print-ready part.</p>
-          <div class="img-placeholder">
-            <div class="ph-icon">🏷️</div>
-            <div class="ph-label">Name plate example</div>
+          <div class="mode-img">
+            <img src="images/example-nameplate.png" alt="Name plate rectangle extrusion example" />
           </div>
         </div>
 
